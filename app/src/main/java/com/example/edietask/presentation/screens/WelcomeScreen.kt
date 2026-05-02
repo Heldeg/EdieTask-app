@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
+import com.example.edietask.presentation.components.MainActionButton
 
 @Composable
 fun WelcomeScreen(
@@ -82,19 +83,13 @@ fun WelcomeScreen(
             Spacer(modifier = Modifier.height(64.dp))
 
             // Botón de Inicio
-            Button(
+            MainActionButton(
+                text = stringResource(R.string.action_start),
                 onClick = onStartClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp),
-                shape = MaterialTheme.shapes.medium,
-                elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.action_start),
-                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                )
-            }
+                    .height(56.dp)
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 

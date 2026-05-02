@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
 import androidx.compose.ui.unit.dp
 import com.example.edietask.domain.model.Priority
+import com.example.edietask.presentation.components.MainActionButton
 import com.example.edietask.presentation.viewmodels.TasksViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +41,11 @@ fun AddTaskScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.title_new_task)) },
+                title = {
+                    Text(
+                        stringResource(if (isEditing) R.string.btn_update_task else R.string.title_new_task)
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.desc_back))
@@ -86,21 +91,17 @@ fun AddTaskScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             if (!isEditing) {
-                Button(
+                MainActionButton(
+                    text = stringResource(R.string.btn_save_task),
                     onClick = { onSave(name, description, selectedPriority) },
-                    modifier = Modifier.fillMaxWidth(),
                     enabled = name.isNotBlank()
-                ) {
-                    Text(stringResource(R.string.btn_save_task))
-                }
+                )
             } else {
-                Button(
+                MainActionButton(
+                    text = stringResource(R.string.btn_update_task),
                     onClick = { onUpdate(taskId!!, name, description, selectedPriority) },
-                    modifier = Modifier.fillMaxWidth(),
                     enabled = name.isNotBlank()
-                ) {
-                    Text(stringResource(R.string.btn_update_task))
-                }
+                )
             }
 
 

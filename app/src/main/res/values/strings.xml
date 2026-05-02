@@ -7,8 +7,8 @@
     <string name="title_new_task">Nueva Tarea</string>
 
     <!--Empty pages-->
-    <string name="empty_lists">No tienes listas aún.</string>
-    <string name="empty_tasks">No hay tareas en esta lista.</string>
+    <string name="empty_lists">No tienes listas aún</string>
+    <string name="empty_tasks">No hay tareas en esta lista</string>
 
     <!--Buttons tags-->
     <string name="btn_save_list">Guardar Lista</string>

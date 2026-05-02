@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
+import com.example.edietask.presentation.components.MainActionButton
 import com.example.edietask.ui.theme.ListColorPalette
 import com.example.edietask.ui.theme.toHexCode
 
@@ -86,13 +87,11 @@ fun AddListScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Button(
+            MainActionButton(
+                text = stringResource(R.string.btn_save_list),
                 onClick = { onSave(title, description, selectedColor.toHexCode()) },
-                modifier = Modifier.fillMaxWidth(),
                 enabled = title.isNotBlank()
-            ) {
-                Text(stringResource(R.string.btn_save_list))
-            }
+            )
         }
     }
 }
