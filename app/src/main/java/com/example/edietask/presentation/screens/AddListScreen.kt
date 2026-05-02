@@ -15,6 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
+import com.example.edietask.ui.theme.ListColorPalette
+import com.example.edietask.ui.theme.toHexCode
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,13 +26,9 @@ fun AddListScreen(
 ) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    
-    val colors = listOf(
-        "#E57373", "#81C784", "#64B5F6", 
-        "#FFB74D", "#BA68C8", "#4DB6AC",
-        "#90A4AE", "#FFF176"
-    )
-    var selectedColor by remember { mutableStateOf(colors[0]) }
+
+
+    var selectedColor by remember { mutableStateOf(ListColorPalette[0]) }
 
     Scaffold(
         topBar = {
@@ -70,16 +68,15 @@ fun AddListScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                colors.forEach { colorHex ->
-                    val color = Color(android.graphics.Color.parseColor(colorHex))
+                ListColorPalette.forEach { color ->
                     Box(
                         modifier = Modifier
                             .size(40.dp)
                             .clip(CircleShape)
                             .background(color)
-                            .clickable { selectedColor = colorHex }
+                            .clickable { selectedColor = color }
                             .border(
-                                width = if (selectedColor == colorHex) 3.dp else 0.dp,
+                                width = if (selectedColor == color) 3.dp else 0.dp,
                                 color = MaterialTheme.colorScheme.primary,
                                 shape = CircleShape
                             )
@@ -90,7 +87,7 @@ fun AddListScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
-                onClick = { onSave(title, description, selectedColor) },
+                onClick = { onSave(title, description, selectedColor.toHexCode()) },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = title.isNotBlank()
             ) {
