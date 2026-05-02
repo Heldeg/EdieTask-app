@@ -14,10 +14,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewModelScope
 import com.example.edietask.presentation.components.TaskItem
 import com.example.edietask.presentation.viewmodels.TasksViewModel
-import kotlinx.coroutines.launch
+import androidx.compose.ui.res.stringResource
+import com.example.edietask.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +39,7 @@ fun TasksScreen(
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Atrás"
+                            contentDescription = stringResource(R.string.desc_back)
                         )
                     }
                 }
@@ -51,7 +51,7 @@ fun TasksScreen(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Nueva Tarea")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.title_new_task))
             }
         }
     ) { paddingValues ->
@@ -83,7 +83,7 @@ fun TasksScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "No hay tareas en esta lista.",
+                            text = stringResource(R.string.empty_tasks),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

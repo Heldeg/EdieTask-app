@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.edietask.presentation.viewmodels.HomeViewModel
+import androidx.compose.ui.res.stringResource
+import com.example.edietask.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +38,7 @@ fun HomeScreen(
             CenterAlignedTopAppBar(
                 title = { 
                     Text(
-                        "Mis Listas",
+                        stringResource(R.string.title_my_lists),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     ) 
                 },
@@ -51,7 +53,7 @@ fun HomeScreen(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.onPrimaryContainer
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Nueva Lista")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.title_new_list))
             }
         }
     ) { paddingValues ->
@@ -63,7 +65,7 @@ fun HomeScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No tienes listas aún.",
+                    text = stringResource(R.string.empty_lists),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

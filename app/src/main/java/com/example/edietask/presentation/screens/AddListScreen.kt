@@ -12,8 +12,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.example.edietask.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,7 +35,7 @@ fun AddListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Nueva Lista") },
+                title = { Text(stringResource(R.string.title_new_list)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
@@ -53,17 +54,17 @@ fun AddListScreen(
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("Título") },
+                label = { Text(stringResource(R.string.label_title)) },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Descripción") },
+                label = { Text(stringResource(R.string.label_description)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Text("Color de la lista", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.label_color), style = MaterialTheme.typography.titleMedium)
             
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -93,7 +94,7 @@ fun AddListScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = title.isNotBlank()
             ) {
-                Text("Guardar Lista")
+                Text(stringResource(R.string.btn_save_list))
             }
         }
     }

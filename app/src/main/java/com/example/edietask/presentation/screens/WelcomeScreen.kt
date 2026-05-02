@@ -11,11 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.edietask.R
 
 @Composable
 fun WelcomeScreen(
@@ -62,7 +63,7 @@ fun WelcomeScreen(
 
             // Título
             Text(
-                text = "EDieTask",
+                text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.displayMedium.copy(
                     fontWeight = FontWeight.ExtraBold,
                     letterSpacing = (-1).sp
@@ -72,7 +73,7 @@ fun WelcomeScreen(
 
             // Eslogan
             Text(
-                text = "Organiza tus ideas, cumple tus metas.",
+                text = stringResource(R.string.slogan),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -90,7 +91,7 @@ fun WelcomeScreen(
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
             ) {
                 Text(
-                    text = "Comenzar ahora",
+                    text = stringResource(R.string.action_start),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                 )
             }
@@ -98,7 +99,7 @@ fun WelcomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Desarrollado por Diego Fino y Edder Hernandez",
+                text = stringResource(R.string.developer_credits),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.outline
             )
