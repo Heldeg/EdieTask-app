@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -21,6 +22,7 @@ fun TasksScreen(
     viewModel: TasksViewModel,
     listTitle: String,
     onBack: () -> Unit,
+    onAddTaskClick: () -> Unit,
 ) {
     val tasks by viewModel.tasks.collectAsState()
 
@@ -38,6 +40,15 @@ fun TasksScreen(
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onAddTaskClick,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Nueva Tarea")
+            }
         }
     ) { paddingValues ->
         LazyColumn(

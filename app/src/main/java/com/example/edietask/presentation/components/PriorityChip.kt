@@ -1,10 +1,8 @@
 package com.example.edietask.presentation.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,24 +14,23 @@ fun PriorityChip(
     priority: Priority,
     modifier: Modifier = Modifier
 ) {
-    val color = when (priority) {
-        Priority.LOW -> Color(0xFF4CAF50)
-        Priority.MEDIUM -> Color(0xFFFFC107)
-        Priority.HIGH -> Color(0xFFF44336)
+    // Colores más sutiles y profesionales (tonos pastel/desaturados)
+    val (containerColor, contentColor) = when (priority) {
+        Priority.LOW -> Color(0xFFE8F5E9) to Color(0xFF2E7D32)    // Verde suave
+        Priority.MEDIUM -> Color(0xFFFFF3E0) to Color(0xFFEF6C00) // Naranja/Ambar suave
+        Priority.HIGH -> Color(0xFFFFEBEE) to Color(0xFFC62828)   // Rojo suave
     }
 
-    AssistChip(
-        onClick = { },
-        label = { 
-            Text(
-                text = priority.name,
-                style = androidx.compose.material3.MaterialTheme.typography.labelSmall
-            ) 
-        },
-        modifier = modifier.padding(horizontal = 4.dp),
-        colors = AssistChipDefaults.assistChipColors(
-            labelColor = color
-        ),
-        border = BorderStroke(1.dp, color.copy(alpha = 0.5f))
-    )
+    Surface(
+        color = containerColor,
+        contentColor = contentColor,
+        shape = MaterialTheme.shapes.extraSmall,
+        modifier = modifier.padding(horizontal = 4.dp)
+    ) {
+        Text(
+            text = priority.name,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+        )
+    }
 }
