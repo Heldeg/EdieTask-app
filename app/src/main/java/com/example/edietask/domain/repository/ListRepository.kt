@@ -10,4 +10,5 @@ interface ListRepository {
     suspend fun getListById(id: Int): TaskList
     suspend fun insertList(taskList: TaskList)
     suspend fun deleteList(taskList: TaskList)
+    suspend fun updateList(taskList: TaskList)
 }

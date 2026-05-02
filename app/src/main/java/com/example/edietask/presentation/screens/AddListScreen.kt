@@ -16,25 +16,45 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
 import com.example.edietask.presentation.components.MainActionButton
+import com.example.edietask.presentation.viewmodels.HomeViewModel
 import com.example.edietask.ui.theme.ListColorPalette
 import com.example.edietask.ui.theme.toHexCode
+import androidx.core.graphics.toColorInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddListScreen(
+    viewModel: HomeViewModel,
+    listId: Int? = null,
     onBack: () -> Unit,
-    onSave: (String, String, String) -> Unit
+    onSave: (String, String, String) -> Unit,
+    onUpdate: (Int, String, String, String) -> Unit
 ) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-
-
     var selectedColor by remember { mutableStateOf(ListColorPalette[0]) }
+    var isEditing by remember { mutableStateOf(false) }
+
+
+    LaunchedEffect(listId) {
+        if (listId != null) {
+            isEditing = true
+            val list = viewModel.getListById(listId)
+            title = list.title
+            description = list.description
+
+            selectedColor = ListColorPalette.find { it.toHexCode() == list.color }
+                ?: ListColorPalette[0]
+        }
+    }
+
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.title_new_list)) },
+                title = {
+                    Text(stringResource(if (isEditing) R.string.title_edit_list else R.string.title_new_list))
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
@@ -72,7 +92,7 @@ fun AddListScreen(
                 ListColorPalette.forEach { color ->
                     Box(
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(35.dp)
                             .clip(CircleShape)
                             .background(color)
                             .clickable { selectedColor = color }
@@ -87,11 +107,19 @@ fun AddListScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            MainActionButton(
-                text = stringResource(R.string.btn_save_list),
-                onClick = { onSave(title, description, selectedColor.toHexCode()) },
-                enabled = title.isNotBlank()
-            )
+            if (!isEditing) {
+                MainActionButton(
+                    text = stringResource(R.string.btn_save_list),
+                    onClick = { onSave(title, description, selectedColor.toHexCode()) },
+                    enabled = title.isNotBlank()
+                )
+            } else {
+                MainActionButton(
+                    text = stringResource(R.string.btn_update_list),
+                    onClick = { onUpdate(listId!!, title, description, selectedColor.toHexCode()) },
+                    enabled = title.isNotBlank()
+                )
+            }
         }
     }
 }

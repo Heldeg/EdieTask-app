@@ -31,4 +31,19 @@ class HomeViewModel(
             )
         }
     }
+    suspend fun getListById(listId: Int): TaskList {
+        return listRepository.getListById(listId)
+    }
+
+    fun updateList(id: Int, title: String, description: String, color: String) {
+        viewModelScope.launch {
+            val currentList = listRepository.getListById(id)
+            val updatedList = currentList.copy(
+                title = title,
+                description = description,
+                color = color
+            )
+            listRepository.updateList(updatedList)
+        }
+    }
 }
