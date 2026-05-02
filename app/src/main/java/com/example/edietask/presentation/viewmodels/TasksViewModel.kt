@@ -35,4 +35,9 @@ class TasksViewModel(
             )
         }
     }
+    fun changeTaskStatus(taskId: Int) {
+        viewModelScope.launch {
+            taskRepository.changeTaskStatus(taskId)
+        }
+    }
 }

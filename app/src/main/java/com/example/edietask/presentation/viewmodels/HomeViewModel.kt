@@ -19,13 +19,13 @@ class HomeViewModel(
             initialValue = emptyList()
         )
 
-    fun insertList(title: String, description: String) {
+    fun insertList(title: String, description: String, color: String) {
         viewModelScope.launch {
             listRepository.insertList(
                 TaskList(
                     title = title,
                     description = description,
-                    color = "#000000", // Valor por defecto
+                    color = color,
                     categoryId = 1 // Valor por defecto para simplificar
                 )
             )
