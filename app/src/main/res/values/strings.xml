@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">EDieTask</string>
+
+    <!--Titles-->
+    <string name="title_my_lists">Mis Listas</string>
+    <string name="title_new_list">Nueva Lista</string>
+    <string name="title_new_task">Nueva Tarea</string>
+
+    <!--Empty pages-->
+    <string name="empty_lists">No tienes listas aún</string>
+    <string name="empty_tasks">No hay tareas en esta lista</string>
+
+    <!--Buttons tags-->
+    <string name="btn_save_list">Guardar Lista</string>
+    <string name="btn_save_task">Guardar Tarea</string>
+    <string name="btn_update_task">Actualizar Tarea</string>
+    <string name="action_start">Comenzar ahora</string>
+
+
+    <!--Content description-->
+    <string name="desc_back">Atrás</string>
+    <string name="label_task_name">Nombre de la tarea</string>
+    <string name="label_description">Descripción (opcional)</string>
+    <string name="label_priority">Prioridad</string>
+    <string name="label_title">Título</string>
+    <string name="label_color">Color de la lista</string>
+    <string name="slogan">Organiza tus ideas, cumple tus metas.</string>
+    <string name="developer_credits">Desarrollado por Diego Fino y Edder Hernandez</string>
+
 </resources>

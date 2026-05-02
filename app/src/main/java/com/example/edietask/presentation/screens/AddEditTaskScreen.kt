@@ -6,8 +6,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.example.edietask.R
 import androidx.compose.ui.unit.dp
 import com.example.edietask.domain.model.Priority
+import com.example.edietask.presentation.components.MainActionButton
 import com.example.edietask.presentation.viewmodels.TasksViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,10 +41,14 @@ fun AddTaskScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Nueva Tarea") },
+                title = {
+                    Text(
+                        stringResource(if (isEditing) R.string.btn_update_task else R.string.title_new_task)
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Atrás")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.desc_back))
                     }
                 }
             )
@@ -57,17 +64,17 @@ fun AddTaskScreen(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Nombre de la tarea") },
+                label = { Text(stringResource(R.string.label_task_name)) },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Descripción (opcional)") },
+                label = { Text(stringResource(R.string.label_description)) },
                 modifier = Modifier.fillMaxWidth()
             )
             
-            Text("Prioridad", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.label_priority), style = MaterialTheme.typography.titleMedium)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -84,21 +91,17 @@ fun AddTaskScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             if (!isEditing) {
-                Button(
+                MainActionButton(
+                    text = stringResource(R.string.btn_save_task),
                     onClick = { onSave(name, description, selectedPriority) },
-                    modifier = Modifier.fillMaxWidth(),
                     enabled = name.isNotBlank()
-                ) {
-                    Text("Guardar Tarea")
-                }
+                )
             } else {
-                Button(
+                MainActionButton(
+                    text = stringResource(R.string.btn_update_task),
                     onClick = { onUpdate(taskId!!, name, description, selectedPriority) },
-                    modifier = Modifier.fillMaxWidth(),
                     enabled = name.isNotBlank()
-                ) {
-                    Text("Actualizar Tarea")
-                }
+                )
             }
 
 

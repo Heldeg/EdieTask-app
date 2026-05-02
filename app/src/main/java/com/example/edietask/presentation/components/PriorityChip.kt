@@ -1,11 +1,10 @@
 package com.example.edietask.presentation.components
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import com.example.edietask.ui.theme.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.edietask.domain.model.Priority
 
@@ -16,9 +15,9 @@ fun PriorityChip(
 ) {
     // Colores más sutiles y profesionales (tonos pastel/desaturados)
     val (containerColor, contentColor) = when (priority) {
-        Priority.LOW -> Color(0xFFE8F5E9) to Color(0xFF2E7D32)    // Verde suave
-        Priority.MEDIUM -> Color(0xFFFFF3E0) to Color(0xFFEF6C00) // Naranja/Ambar suave
-        Priority.HIGH -> Color(0xFFFFEBEE) to Color(0xFFC62828)   // Rojo suave
+        Priority.LOW -> PriorityLowBg to PriorityLowText    // Verde suave
+        Priority.MEDIUM -> PriorityMediumBg to PriorityMediumText // Naranja/Ambar suave
+        Priority.HIGH -> PriorityHighBg to PriorityHighText   // Rojo suave
     }
 
     Surface(
