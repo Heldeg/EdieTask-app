@@ -13,6 +13,7 @@ import com.example.edietask.domain.data.local.repository.TaskRepositoryImpl
 import com.example.edietask.domain.util.seedDatabase
 import com.example.edietask.presentation.navigation.NavigationWrapper
 import com.example.edietask.ui.theme.EDieTaskTheme
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -28,20 +29,19 @@ class MainActivity : ComponentActivity() {
         val taskRepo = TaskRepositoryImpl(database.taskDao())
 
         lifecycleScope.launch {
-            Log.d("EDIeTask_DB", "--- Iniciando prueba de Base de Datos ---")
+            val existingCategories = categoryRepo.getAllCategories().first()
 
-            seedDatabase(
-                categoryRepo = categoryRepo,
-                listRepo = listRepo,
-                taskRepo = taskRepo
-            )
-
-            Log.d("EDIeTask_DB", "Datos insertados correctamente.")
-
-            categoryRepo.getAllCategories().collect { categories ->
-                Log.d("EDIeTask_DB", "Categorías en DB: ${categories.size}")
-                categories.forEach { Log.d("EDIeTaskDB", " -> ${it.name} ${it.emoji}") }
-
+            if (existingCategories.isEmpty()) {
+                Log.d("EDIeTask_DB", "--- Base de datos vacía. Iniciando Seed ---")
+                seedDatabase(
+                    categoryRepo = categoryRepo,
+                    listRepo = listRepo,
+                    taskRepo = taskRepo
+                )
+                Log.d("EDIeTask_DB", "Datos iniciales insertados correctamente.")
+            } else {
+                Log.d("EDIeTask_DB", "La base de datos ya tiene datos. Omitiendo Seed.")
+                Log.d("EDIeTask_DB", "Categorías actuales: ${existingCategories.size}")
             }
         }
 
