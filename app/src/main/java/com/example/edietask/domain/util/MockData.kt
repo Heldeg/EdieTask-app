@@ -19,15 +19,15 @@ object MockData {
     val taskLists = listOf(
         TaskList(
             id = 1,
-            title = "¡Bienvenido a EDIeTask!",
-            description = "Descubre cómo organizar tu día.",
+            title = "Universidad",
+            description = "Tareas de la unviersidad",
             color = "#FF9800", // Un naranja vibrante para llamar la atención
             categoryId = 1
         ),
         TaskList(
             id = 2,
-            title = "Mi Día",
-            description = "Tareas importantes para hoy",
+            title = "Trabajo",
+            description = "Tareas importantes del día",
             color = "#2196F3", // Azul
             categoryId = 1
         )
@@ -36,7 +36,7 @@ object MockData {
     val tasks = listOf(
         Task(
             id = 1,
-            name = "Crea tu primera tarea ✍️",
+            name = "Primera tarea ✍️",
             description = "Toca el botón '+' para agregar una nueva tarea a esta lista.",
             priority = Priority.HIGH,
             createdAt = System.currentTimeMillis(),
