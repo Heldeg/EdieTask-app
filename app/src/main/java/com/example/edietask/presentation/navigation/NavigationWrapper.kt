@@ -26,7 +26,7 @@ object Home
 data class AddEditList(val listId: Int? = null)
 
 @Serializable
-data class Tasks(val listId: Int, val listTitle: String)
+data class Tasks(val listId: Int, val listTitle: String, val listColor: String)
 
 @Serializable
 data class AddEditTask(val listId: Int, val taskId: Int? = null)
@@ -49,8 +49,8 @@ fun NavigationWrapper() {
         composable<Home> {
             HomeScreen(
                 viewModel = viewModel(factory = AppViewModelProvider.Factory),
-                onListClick = { listId, title ->
-                    navController.navigate(Tasks(listId, title))
+                onListClick = { listId, title, color ->
+                    navController.navigate(Tasks(listId, title, color))
                 },
                 onAddListClick = {
                     navController.navigate(AddEditList())
@@ -83,6 +83,7 @@ fun NavigationWrapper() {
             TasksScreen(
                 viewModel = viewModel(factory = AppViewModelProvider.provideTasksViewModelFactory(tasksRoute.listId)),
                 listTitle = tasksRoute.listTitle,
+                listColorHex = tasksRoute.listColor,
                 onBack = { navController.popBackStack() },
                 onEditListClick = {
                     navController.navigate(AddEditList(tasksRoute.listId))
