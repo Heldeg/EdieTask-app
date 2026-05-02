@@ -12,4 +12,5 @@ interface TaskRepository {
     suspend fun insertTask(task: Task)
     suspend fun updateTask(task: Task)
     suspend fun deleteTask(taskId: Int, timestamp: Long = System.currentTimeMillis())
+    suspend fun changeTaskStatus(taskId: Int)
 }

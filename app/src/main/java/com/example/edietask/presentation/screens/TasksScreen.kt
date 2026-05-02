@@ -60,7 +60,7 @@ fun TasksScreen(
             items(tasks) { task ->
                 TaskItem(
                     task = task,
-                    onToggleCompletion = { /* TODO */ },
+                    onToggleCompletion = { viewModel.changeTaskStatus(task.id ?: 0) },
                     onClick = { /* TODO */ }
                 )
                 HorizontalDivider(

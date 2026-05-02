@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.edietask.presentation.screens.WelcomeScreen
 import com.example.edietask.presentation.screens.HomeScreen
 import com.example.edietask.presentation.screens.TasksScreen
 import com.example.edietask.presentation.screens.AddListScreen
@@ -14,6 +15,9 @@ import com.example.edietask.presentation.viewmodels.AppViewModelProvider
 import com.example.edietask.presentation.viewmodels.HomeViewModel
 import com.example.edietask.presentation.viewmodels.TasksViewModel
 import kotlinx.serialization.Serializable
+
+@Serializable
+object Welcome
 
 @Serializable
 object Home
@@ -31,7 +35,17 @@ data class AddTask(val listId: Int)
 fun NavigationWrapper() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Home) {
+    NavHost(navController = navController, startDestination = Welcome) {
+        composable<Welcome> {
+            WelcomeScreen(
+                onStartClick = {
+                    navController.navigate(Home) {
+                        popUpTo(Welcome) { inclusive = true }
+                    }
+                }
+            )
+        }
+
         composable<Home> {
             HomeScreen(
                 viewModel = viewModel(factory = AppViewModelProvider.Factory),
@@ -48,8 +62,8 @@ fun NavigationWrapper() {
             val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
             AddListScreen(
                 onBack = { navController.popBackStack() },
-                onSave = { title, description ->
-                    homeViewModel.insertList(title, description)
+                onSave = { title, description, color ->
+                    homeViewModel.insertList(title, description, color)
                     navController.popBackStack()
                 }
             )

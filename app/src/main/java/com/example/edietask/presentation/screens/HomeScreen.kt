@@ -1,9 +1,11 @@
 package com.example.edietask.presentation.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Add
@@ -13,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -74,6 +77,12 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(taskLists) { list ->
+                    val listColor = try {
+                        Color(android.graphics.Color.parseColor(list.color))
+                    } catch (e: Exception) {
+                        MaterialTheme.colorScheme.primary
+                    }
+
                     Card(
                         onClick = { onListClick(list.id ?: 0, list.title) },
                         modifier = Modifier.fillMaxWidth(),
@@ -82,11 +91,19 @@ fun HomeScreen(
                         ),
                         border = BorderStroke(
                             2.dp,
-                            MaterialTheme.colorScheme.outlineVariant
+                            listColor.copy(alpha = 0.5f)
                         )
                     ) {
                         ListItem(
                             colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+                            leadingContent = {
+                                Box(
+                                    modifier = Modifier
+                                        .size(12.dp)
+                                        .clip(CircleShape)
+                                        .background(listColor)
+                                )
+                            },
                             headlineContent = { 
                                 Text(
                                     list.title,

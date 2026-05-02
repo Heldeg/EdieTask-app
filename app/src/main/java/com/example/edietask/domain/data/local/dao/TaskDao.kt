@@ -31,4 +31,8 @@ interface TaskDao {
     //Delete
     @Query(value = "UPDATE tasks SET deleted_at = :timestamp WHERE id = :taskId")
     suspend fun deleteTask(taskId: Int, timestamp: Long = System.currentTimeMillis())
+
+    //Change task status
+    @Query(value = "UPDATE tasks SET isCompleted = NOT isCompleted WHERE id = :taskId")
+    suspend fun changeTaskStatus(taskId: Int)
 }

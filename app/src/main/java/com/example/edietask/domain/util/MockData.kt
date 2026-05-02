@@ -45,7 +45,7 @@ object MockData {
         ),
         Task(
             id = 2,
-            name = "Desliza para borrar 🗑️",
+            name = "Marca la tarea como completa 🗑️",
             description = "Intenta deslizar esta tarea hacia un lado para eliminarla.",
             priority = Priority.MEDIUM,
             createdAt = System.currentTimeMillis(),
@@ -54,12 +54,12 @@ object MockData {
         ),
         Task(
             id = 3,
-            name = "Marca esta tarea como completada ✅",
+            name = "Esta tarea de ejemplo esta completa",
             description = "Toca el círculo a la izquierda para terminar esta tarea.",
             priority = Priority.LOW,
             createdAt = System.currentTimeMillis(),
             listId = 1,
-            isCompleted = false
+            isCompleted = true
         ),
 
         Task(

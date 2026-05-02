@@ -61,7 +61,8 @@ fun TaskItem(
                         text = task.description,
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1
+                        maxLines = 1,
+                        textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null
                     )
                 }
             }
