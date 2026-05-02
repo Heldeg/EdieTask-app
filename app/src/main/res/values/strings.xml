@@ -5,8 +5,8 @@
     <string name="title_my_lists">Mis Listas</string>
     <string name="title_new_list">Nueva Lista</string>
     <string name="title_new_task">Nueva Tarea</string>
-    <string name="title_edit_list">Editar Lista Lista</string>
-    <string name="title_edit_task">Editar Lista Lista</string>
+    <string name="title_edit_list">Editar Lista</string>
+    <string name="title_edit_task">Editar Tarea</string>
 
     <!--Empty pages-->
     <string name="empty_lists">No tienes listas aún</string>

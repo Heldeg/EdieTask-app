@@ -22,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import com.example.edietask.presentation.viewmodels.HomeViewModel
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
+import androidx.core.graphics.toColorInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
-    onListClick: (Int, String) -> Unit,
+    onListClick: (Int, String, String) -> Unit,
     onAddListClick: () -> Unit,
 ) {
     val taskLists by viewModel.taskLists.collectAsState()
@@ -80,13 +81,13 @@ fun HomeScreen(
             ) {
                 items(taskLists) { list ->
                     val listColor = try {
-                        Color(android.graphics.Color.parseColor(list.color))
+                        Color(list.color.toColorInt())
                     } catch (e: Exception) {
                         MaterialTheme.colorScheme.primary
                     }
 
                     Card(
-                        onClick = { onListClick(list.id ?: 0, list.title) },
+                        onClick = { onListClick(list.id ?: 0, list.title, list.color) },
                         modifier = Modifier.fillMaxWidth(),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surface

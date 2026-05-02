@@ -15,28 +15,39 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.edietask.presentation.components.TaskItem
 import com.example.edietask.presentation.viewmodels.TasksViewModel
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
+import com.example.edietask.ui.theme.ListColorPalette
+import androidx.core.graphics.toColorInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreen(
     viewModel: TasksViewModel,
     listTitle: String,
+    listColorHex: String,
     onBack: () -> Unit,
     onAddTaskClick: () -> Unit,
     onEditTaskClick: (Int?) -> Unit,
     onEditListClick: () -> Unit
 ) {
     val tasks by viewModel.tasks.collectAsState()
-
+    val resolvedColor = try {
+        Color(listColorHex.trim().toColorInt())
+    } catch (e: Exception) {
+        MaterialTheme.colorScheme.surface
+    }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = resolvedColor
+                ),
                 title = { Text(
                     text = listTitle,
                     modifier = Modifier.clickable{ onEditListClick() }

@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -11,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
 import com.example.edietask.R
@@ -19,7 +20,6 @@ import com.example.edietask.presentation.components.MainActionButton
 import com.example.edietask.presentation.viewmodels.HomeViewModel
 import com.example.edietask.ui.theme.ListColorPalette
 import com.example.edietask.ui.theme.toHexCode
-import androidx.core.graphics.toColorInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,15 +84,15 @@ fun AddListScreen(
             )
 
             Text(stringResource(R.string.label_color), style = MaterialTheme.typography.titleMedium)
-            
-            Row(
+
+            LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                ListColorPalette.forEach { color ->
+                items(ListColorPalette) { color ->
                     Box(
                         modifier = Modifier
-                            .size(35.dp)
+                            .size(40.dp)
                             .clip(CircleShape)
                             .background(color)
                             .clickable { selectedColor = color }
