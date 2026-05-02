@@ -1,12 +1,14 @@
 package com.example.edietask.presentation.screens
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,7 +28,8 @@ fun TasksScreen(
     listTitle: String,
     onBack: () -> Unit,
     onAddTaskClick: () -> Unit,
-    onEditTaskClick: (Int?) -> Unit
+    onEditTaskClick: (Int?) -> Unit,
+    onEditListClick: () -> Unit
 ) {
     val tasks by viewModel.tasks.collectAsState()
 
@@ -34,12 +37,23 @@ fun TasksScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(listTitle) },
+                title = { Text(
+                    text = listTitle,
+                    modifier = Modifier.clickable{ onEditListClick() }
+                ) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.desc_back)
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onEditListClick) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = stringResource(R.string.label_edit_list)
                         )
                     }
                 }

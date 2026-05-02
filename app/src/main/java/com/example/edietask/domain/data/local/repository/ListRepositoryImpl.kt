@@ -32,4 +32,8 @@ class ListRepositoryImpl(private val listDao: ListDao) : ListRepository {
     override suspend fun deleteList(taskList: TaskList) {
         return listDao.deleteList(taskList.toEntity())
     }
+
+    override suspend fun updateList(taskList: TaskList) {
+        return listDao.updateList(taskList.toEntity())
+    }
 }

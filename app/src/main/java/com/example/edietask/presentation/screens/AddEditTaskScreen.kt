@@ -43,7 +43,7 @@ fun AddTaskScreen(
             TopAppBar(
                 title = {
                     Text(
-                        stringResource(if (isEditing) R.string.btn_update_task else R.string.title_new_task)
+                        stringResource(if (isEditing) R.string.title_edit_task else R.string.title_new_task)
                     )
                 },
                 navigationIcon = {

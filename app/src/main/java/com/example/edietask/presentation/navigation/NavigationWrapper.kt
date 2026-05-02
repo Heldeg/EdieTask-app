@@ -23,7 +23,7 @@ object Welcome
 object Home
 
 @Serializable
-object AddList
+data class AddEditList(val listId: Int? = null)
 
 @Serializable
 data class Tasks(val listId: Int, val listTitle: String)
@@ -53,18 +53,27 @@ fun NavigationWrapper() {
                     navController.navigate(Tasks(listId, title))
                 },
                 onAddListClick = {
-                    navController.navigate(AddList)
+                    navController.navigate(AddEditList())
                 }
             )
         }
 
-        composable<AddList> {
+        composable<AddEditList> { backStackEntry ->
+            val route: AddEditList = backStackEntry.toRoute()
             val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
             AddListScreen(
+                viewModel = homeViewModel,
+                listId = route.listId,
                 onBack = { navController.popBackStack() },
                 onSave = { title, description, color ->
                     homeViewModel.insertList(title, description, color)
                     navController.popBackStack()
+                },
+                onUpdate = { id, title, description, color ->
+                    homeViewModel.updateList(id, title, description, color)
+                    navController.navigate(Home) {
+                        popUpTo(Home) { inclusive = true }
+                    }
                 }
             )
         }
@@ -75,6 +84,9 @@ fun NavigationWrapper() {
                 viewModel = viewModel(factory = AppViewModelProvider.provideTasksViewModelFactory(tasksRoute.listId)),
                 listTitle = tasksRoute.listTitle,
                 onBack = { navController.popBackStack() },
+                onEditListClick = {
+                    navController.navigate(AddEditList(tasksRoute.listId))
+                },
                 onAddTaskClick = {
                     navController.navigate(AddEditTask(tasksRoute.listId))
                 },

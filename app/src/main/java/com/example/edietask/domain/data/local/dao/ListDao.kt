@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.edietask.domain.data.local.entity.ListEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -24,4 +25,7 @@ interface ListDao {
 
     @Delete
     suspend fun deleteList(list: ListEntity)
+
+    @Update
+    suspend fun updateList(list: ListEntity)
 }

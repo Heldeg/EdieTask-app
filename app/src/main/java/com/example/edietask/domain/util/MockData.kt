@@ -7,6 +7,9 @@ import com.example.edietask.domain.model.TaskList
 import com.example.edietask.domain.repository.CategoryRepository
 import com.example.edietask.domain.repository.ListRepository
 import com.example.edietask.domain.repository.TaskRepository
+import com.example.edietask.ui.theme.ListBlue
+import com.example.edietask.ui.theme.ListRed
+import com.example.edietask.ui.theme.toHexCode
 
 object MockData {
 
@@ -21,14 +24,14 @@ object MockData {
             id = 1,
             title = "Universidad",
             description = "Tareas de la unviersidad",
-            color = "#FF9800", // Un naranja vibrante para llamar la atención
+            color = ListRed.toHexCode(),
             categoryId = 1
         ),
         TaskList(
             id = 2,
             title = "Trabajo",
             description = "Tareas importantes del día",
-            color = "#2196F3", // Azul
+            color = ListBlue.toHexCode(),
             categoryId = 1
         )
     )
