@@ -12,7 +12,7 @@ import com.example.edietask.domain.model.Priority
 
 class TasksViewModel(
     private val taskRepository: TaskRepository,
-    private val listId: Int
+    private val listId: Int,
 ) : ViewModel() {
 
     val tasks: StateFlow<List<Task>> = taskRepository.getActiveTasksForList(listId)
@@ -38,6 +38,23 @@ class TasksViewModel(
     fun changeTaskStatus(taskId: Int) {
         viewModelScope.launch {
             taskRepository.changeTaskStatus(taskId)
+        }
+    }
+
+
+    suspend fun getTask(taskId: Int): Task {
+        return taskRepository.getTaskById(taskId)
+    }
+
+    fun updateTask(id: Int, name: String, description: String, priority: Priority) {
+        viewModelScope.launch {
+            val existingTask = taskRepository.getTaskById(id)
+            val updatedTask = existingTask.copy(
+                name = name,
+                description = description,
+                priority = priority
+            )
+            taskRepository.updateTask(updatedTask)
         }
     }
 }
