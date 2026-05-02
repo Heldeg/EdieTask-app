@@ -8,17 +8,32 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.edietask.domain.model.Priority
-import com.example.edietask.presentation.components.PriorityChip
+import com.example.edietask.presentation.viewmodels.TasksViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreen(
+    viewModel: TasksViewModel,
+    taskId: Int?=null,
     onBack: () -> Unit,
-    onSave: (String, String, Priority) -> Unit
+    onSave: (String, String, Priority) -> Unit,
+    onUpdate: (Int, String, String, Priority) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var selectedPriority by remember { mutableStateOf(Priority.MEDIUM) }
+    var isEditing by remember { mutableStateOf(false) }
+
+    //Check if it is editing and get task
+    LaunchedEffect(taskId) {
+        if (taskId != null) {
+            isEditing = true
+            val task = viewModel.getTask(taskId)
+            name = task.name
+            description = task.description
+            selectedPriority = task.priority
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -68,13 +83,25 @@ fun AddTaskScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Button(
-                onClick = { onSave(name, description, selectedPriority) },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = name.isNotBlank()
-            ) {
-                Text("Guardar Tarea")
+            if (!isEditing) {
+                Button(
+                    onClick = { onSave(name, description, selectedPriority) },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = name.isNotBlank()
+                ) {
+                    Text("Guardar Tarea")
+                }
+            } else {
+                Button(
+                    onClick = { onUpdate(taskId!!, name, description, selectedPriority) },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = name.isNotBlank()
+                ) {
+                    Text("Actualizar Tarea")
+                }
             }
+
+
         }
     }
 }

@@ -29,7 +29,7 @@ object AddList
 data class Tasks(val listId: Int, val listTitle: String)
 
 @Serializable
-data class AddTask(val listId: Int)
+data class AddEditTask(val listId: Int, val taskId: Int? = null)
 
 @Composable
 fun NavigationWrapper() {
@@ -76,20 +76,29 @@ fun NavigationWrapper() {
                 listTitle = tasksRoute.listTitle,
                 onBack = { navController.popBackStack() },
                 onAddTaskClick = {
-                    navController.navigate(AddTask(tasksRoute.listId))
+                    navController.navigate(AddEditTask(tasksRoute.listId))
+                },
+                onEditTaskClick = {taskId ->
+                    navController.navigate(AddEditTask(tasksRoute.listId, taskId))
                 }
             )
         }
 
-        composable<AddTask> { backStackEntry ->
-            val addTaskRoute: AddTask = backStackEntry.toRoute()
+        composable<AddEditTask> { backStackEntry ->
+            val addTaskRoute: AddEditTask = backStackEntry.toRoute()
             val tasksViewModel: TasksViewModel = viewModel(
                 factory = AppViewModelProvider.provideTasksViewModelFactory(addTaskRoute.listId)
             )
             AddTaskScreen(
+                viewModel = tasksViewModel,
+                taskId = addTaskRoute.taskId,
                 onBack = { navController.popBackStack() },
                 onSave = { name, description, priority ->
                     tasksViewModel.addTask(name, description, priority)
+                    navController.popBackStack()
+                },
+                onUpdate = { id, name, description, priority ->
+                    tasksViewModel.updateTask(id, name, description, priority)
                     navController.popBackStack()
                 }
             )
